@@ -1,0 +1,41 @@
+{
+  "name": "delousy",
+  "version": "0.0.0",
+  "description": "Teach yourself how to debug Node apps more better.",
+  "bin": {
+    "delousy": "bin/cmd.js"
+  },
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/othiym23/delousy"
+  },
+  "homepage": "https://github.com/othiym23/delousy",
+  "keywords": [
+    "debugging",
+    "educational",
+    "guide",
+    "tutorial",
+    "workshopper",
+    "learn"
+  ],
+  "author": {
+    "name": "Forrest L Norvell",
+    "email": "ogd@aoaioxxysz.net",
+    "url": "http://driftglass.org"
+  },
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/othiym23/delousy/issues"
+  },
+  "dependencies": {
+    "eslint": "^0.6.2",
+    "graceful-fs": "^3.0.2",
+    "jshint": "^2.5.1",
+    "minimist": "^0.2.0",
+    "mkdirp": "^0.5.0",
+    "terminal-menu": "^0.3.2"
+  }
+}

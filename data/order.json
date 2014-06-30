@@ -1,0 +1,15 @@
+{
+  "INTAKE"     : "introduction",
+  "TRIAGE"     : "console",
+  "DISINFECT"  : "lint",
+  "TRACES"     : "stacktraces",
+  "MONITOR"    : "bunyan",
+  "TEST"       : "tape",
+  "SCAN"       : "node-debug",
+  "OBSERVE"    : "repl",
+  "PROBE"      : "trace",
+  "INTERVENE"  : "debugger",
+  "OPERATE"    : "inspector",
+  "BIOPSY"     : "heapdump",
+  "POSTMORTEM" : "gdb"
+}

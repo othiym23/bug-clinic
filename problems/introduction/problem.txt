@@ -1,0 +1,10 @@
+CLINICIAN'S REPORT:
+
+"Program admitted %s %s suff. general systems failure & occasional
+crashes. Rptd attempts by subject to leave ADM. Visible agitation &
+inarticulate screaming: 'demo day is coming'. Subject crashed befr
+restraints required. Core dump examination inconc. Admitted GEN for obs
+/ diag."
+
+To proceed, write a program that prints "i am okay" to standard output
+and "i am so incredibly not okay" to standard output.

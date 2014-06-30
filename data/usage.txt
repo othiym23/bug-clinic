@@ -1,0 +1,27 @@
+usage:
+
+  delousy
+
+    Show a menu to interactively select a treatment option.
+
+  delousy list
+
+    Show a newline-separated list of all the treatments.
+
+  delousy select NAME
+
+    Select a treatment.
+
+  delousy current
+
+    Show the currently selected treatment.
+
+  delousy run program.js
+
+    Run your program against the selected input.
+
+  delousy verify program.js
+
+    Verify your program against the expected output.
+
+
