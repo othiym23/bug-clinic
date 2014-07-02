@@ -45,3 +45,7 @@ Here's a good starter config file for eslint (again, stick it in
         }
     }
 
+To run or test your bonus solution, run:
+
+    `bug-clinic run bonus <program.js>` or
+    `bug-clinic verify bonus <program.js>`
