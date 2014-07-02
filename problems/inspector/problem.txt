@@ -1,19 +1,19 @@
-If you're going to be spending a lot of time debugging a single problem, or if
-you're not comfortable with command-line tools, you can try `node-inspector`.
-It's much more heavyweight and slower to start than using the built-in
-debugger, so it's not as convenient if you're jumping in and out of a test
-case many times a minute.
+If you're going to be spending a lot of time debugging a single
+problem, or if you're not comfortable with command-line tools, you can
+try `node-inspector`. It's much more heavyweight and slower to start
+than using the built-in debugger, so it's not as convenient if you're
+jumping in and out of a test case many times a minute.
 
-On the other hand, if you're familiar with Chrome's Dev Tools interface,
-you'll feel right at home, because node-inspector uses the Dev Tools
-UI to drive the V8 remote debugger API (in fact, node-inspector
-requires you to use Chrome or Opera, because it depends on the Blink
-rendering engine). It still has some of the same weirdness about
-setting breakpoints as the built-in debugger, but it has a *much* more
-interactive UI and is a lot easier to use as an exploratory tool than
-the debugger REPL.
+On the other hand, if you're familiar with Chrome's Dev Tools
+interface, you'll feel right at home, because node-inspector uses
+the Dev Tools UI to drive the V8 remote debugger API (in fact,
+node-inspector requires you to use Chrome or Opera, because it
+depends on the Blink rendering engine). It still has some of the same
+weirdness about setting breakpoints as the built-in debugger, but it
+has a *much* more interactive UI and is a lot easier to use as an
+exploratory tool than the debugger REPL.
 
-NOTE: if, when using the debugger, it appears to hang, things can often
-be fixed by simply shift-reloading the debugger's tab in Chrome. It is
-sometimes all too easy to scramble the inspector enough that you'll need
-to reload.
+NOTE: if, when using the debugger, it appears to hang, things can
+often be fixed by simply shift-reloading the debugger's tab in Chrome.
+It is sometimes all too easy to scramble the inspector enough that
+you'll need to reload.

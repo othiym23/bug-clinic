@@ -1,31 +1,31 @@
-Quite often, by the time you need to know what your program was doing when it
-stopped doing what you wanted, it's too late. Also, if you just add
-console.log statements everywhere something interesting might be happening,
-pretty soon it's going to be a real chore to sort through your program's
-output looking for the output that's relevant. This is the job logs are
-intended to solve.
+Quite often, by the time you need to know what your program was doing
+when it stopped doing what you wanted, it's too late. Also, if you
+just add console.log statements everywhere something interesting
+might be happening, pretty soon it's going to be a real chore to sort
+through your program's output looking for the output that's relevant.
+This is the job logs are intended to solve.
 
-   (As a side note, if you've never read Twelve-Factor Apps, now is
-    a good time to read it. It has a very different take on how
-    logs should work, although the underlying principles are similar:
-    http://12factor.net/logs)
+   (As a side note, if you've never read Twelve-Factor Apps, now
+    is a good time to read it. It has a very different take on
+    how logs should work, although the underlying principles are
+    similar: http://12factor.net/logs)
 
 Most good logging frameworks share a few principles in common:
 
 1. Each entry has a consistent format.
 2. Each loggable event maps to a single log entry.
-3. The log entries are guaranteed to be recorded in the order in which they
-   occurred.
-4. There are multiple levels at which you can log, so you can choose the level
-   of granularity that suits your current level of interest (are you running
-   in production? Debugging a new configuration? Troubleshooting a complex or
-   confusing function?).
-5. A single stream of log events should be collected from multiple sources and
-   stored in a single place.
+3. The log entries are guaranteed to be recorded in the order in which
+   they occurred.
+4. There are multiple levels at which you can log, so you can choose
+   the level of granularity that suits your current level of interest
+   (are you running in production? Debugging a new configuration?
+   Troubleshooting a complex or confusing function?).
+5. A single stream of log events should be collected from multiple
+   sources and stored in a single place.
 6. You should be able to browse the logs using standard tools.
 
-Node has some low-level logging facilities, which we'll get to later, but
-they're intended for use by the developers of the core Node platform. In
-general, the Node world has settled on newline-delimited JSON objects for
-logging. bunyan is the established favorite, although the much newer bole is
-growing more popular quickly.
+Node has some low-level logging facilities, which we'll get to later,
+but they're intended for use by the developers of the core Node
+platform. In general, the Node world has settled on newline-delimited
+JSON objects for logging. bunyan is the established favorite, although
+the much newer bole is growing more popular quickly.

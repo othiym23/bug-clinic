@@ -1,11 +1,12 @@
-Sometimes it's the simplest things that trip you up. Since JavaScript is
-so flexible, many things you *can* do are also things you *shouldn't*
-do. Computers are good at spotting things we can't see, so code linters
-like jshint can identify issues that would otherwise go unnoticed.
+Sometimes it's the simplest things that trip you up. Since JavaScript
+is so flexible, many things you *can* do are also things you
+*shouldn't* do. Computers are good at spotting things we can't see, so
+code linters like jshint can identify issues that would otherwise go
+unnoticed.
 
 Install jshint (`npm install --global jshint` – maybe with sudo on
-Linux, probably logged in as an administrator on Windows) and use it to
-figure out and fix what's wrong with this program:
+Linux, probably logged in as an administrator on Windows) and use it
+to figure out and fix what's wrong with this program:
 
     today = 'today';
 
@@ -31,9 +32,9 @@ BONUS:
 eslint is slightly more stringent than jshint. Depending on your
 solution, there may still be some questionable code lurking in your
 solution. Install eslint (`npm -g i eslint`, same caveats as above)
-against your fixed program and see if it picks up anything else. Here's
-a good starter config file for eslint (again, stick it in `eslintrc` and
-then use it with `eslint --config eslintrc`):
+against your fixed program and see if it picks up anything else.
+Here's a good starter config file for eslint (again, stick it in
+`eslintrc` and then use it with `eslint --config eslintrc`):
 
     {
         "env" : {

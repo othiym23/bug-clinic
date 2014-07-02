@@ -1,20 +1,20 @@
 It may seem strange to talk about tests in the context of debugging,
-but in reality they're one of the most useful debugging tools you have.
-The process of reducing a situation down to something simple enough to
-fit in a test case teaches you a lot about the problems your program
-is seeing, and once the test is finished (and the underlying bugs are
-fixed), you can add it to your test suite as a guard against future
-regressions. Also, once you've reduced the issue down to its simplest
-manifestation, you've got a jumping-off point to use with a debugger
-(about which more will be said later).
+but in reality they're one of the most useful debugging tools you
+have. The process of reducing a situation down to something simple
+enough to fit in a test case teaches you a lot about the problems your
+program is seeing, and once the test is finished (and the underlying
+bugs are fixed), you can add it to your test suite as a guard against
+future regressions. Also, once you've reduced the issue down to its
+simplest manifestation, you've got a jumping-off point to use with a
+debugger (about which more will be said later).
 
-Testing is far too huge a topic to attempt to cover in depth here. James
-Coglan's "JavaScript Testing Recipes" is an entire (excellent) book
-devoted to testing in JavaScript. Similarly, there are even more test
-runners than test frameworks for Node, and there's no reasonable way to
-single one out as being better than all the others. However, there are
-a few things to look for in a test framework when you're using it as a
-debugging tool:
+Testing is far too large a topic to attempt to cover in depth here.
+James Coglan's "JavaScript Testing Recipes" is an entire (excellent)
+book devoted to testing in JavaScript. Similarly, there are even more
+test runners than test frameworks for Node, and there's no reasonable
+way to single one out as being better than all the others. However,
+there are a few things to look for in a test framework when you're
+using it as a debugging tool:
 
   * You should be able to run your test cases directly from the command
     line, without the use of a special-purpose binary. Stepping through
