@@ -29,8 +29,9 @@ issue is in your code, put `debugger;` into your code a few lines
 *before* the troublesome line, so you can use the debugger REPL to
 gather context. If you have a test case, it makes things much simpler.
 This is a somewhat tedious process (and you should be careful to scrub
-out your debugger statements when you're done!), but it's a lot easier
-than trying to deal with setting breakpoints.
+out your debugger statements when you're done -- jshint and eslint
+will warn you about leftover debug statements, if you run them!), but
+it's a lot easier than trying to deal with setting breakpoints.
 
 To get to the debugger's REPL, just type 'repl' at the debugger prompt.
 
