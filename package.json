@@ -31,6 +31,9 @@
     "url": "https://github.com/othiym23/delousy/issues"
   },
   "dependencies": {
+    "adventure": "^2.4.0",
+    "adventure-verify": "^2.1.1",
+    "concat-stream": "^1.4.6",
     "eslint": "^0.6.2",
     "graceful-fs": "^3.0.2",
     "jshint": "^2.5.1",

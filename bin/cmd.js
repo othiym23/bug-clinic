@@ -6,8 +6,10 @@ var writeFileSync    = require("graceful-fs").writeFileSync;
 
 var minimist = require("minimist");
 var mkdirp   = require("mkdirp");
+var concat   = require("concat-stream");
 
-var verify   = require("../lib/verify.js");
+// var adventure = require("adventure");
+var verify = require("adventure-verify");
 var showMenu = require("../lib/menu.js");
 
 var order   = require("../data/order.json");
@@ -15,6 +17,8 @@ var dataDir = resolve(
   process.env.HOME || process.env.USERPROFILE,
   ".config/delousy"
 );
+
+// var delousy = adventure("delousy");
 
 main(minimist(process.argv.slice(2)));
 
@@ -54,29 +58,55 @@ function main(argv) {
     case "verify":
     case "run":
       var problem = getCurrentProblem();
-      var dir = dirFromName(problem);
-      var setup = require(resolve(dir, "setup.js"))({ run: argv._[0] === "run" });
-      setTimeout(function () {
-          var a = argv._.slice(1).concat(setup.aArgs || setup.args || []);
-          var b = [ dir + "/solution.js" ].concat(setup.bArgs || setup.args || []);
-          var v = verify(a, b, {
-              a: setup.a,
-              b: setup.b,
-              showStdout: setup.showStdout,
-              long: setup.long,
-              run: argv._[0] === "run"
-          });
-          v.on("pass", onpass);
-          v.on("fail", onfail);
+      var verifier = require(join("../problems", order[problem])).verify;
 
-          if (setup.stdin) {
-              setup.stdin.pipe(v);
-              setup.stdin.resume();
+      var test = verify(null, verifier);
+      if (argv._[0] === "verify") {
+        var output = "";
+        var tapStream = test(argv._.slice(1), function (ok) {
+          if (!ok) {
+            console.log("Doctor, your diagnosis was unsound:");
+            console.log(output);
           }
 
-          if (setup.a && setup.a.resume) setup.a.resume();
-          if (setup.b && setup.b.resume) setup.b.resume();
-      }, setup.wait || 1);
+          console.log("SUCCESS! on to the next one.");
+        });
+        tapStream.pipe(concat(function (data) { output = data; }));
+      }
+      else { // run
+        test(argv._.slice(1), function () {}).pipe(process.stdout);
+      }
+
+      // delousy.add(problem, function () {
+      //   return require(join("../problems", order[problem]));
+      // });
+
+      // delousy.execute(argv._);
+
+
+      // var dir = dirFromName(problem);
+      // var setup = require(resolve(dir, "setup.js"))({ run: argv._[0] === "run" });
+      // setTimeout(function () {
+      //     var a = argv._.slice(1).concat(setup.aArgs || setup.args || []);
+      //     var b = [ dir + "/solution.js" ].concat(setup.bArgs || setup.args || []);
+      //     var v = verify(a, b, {
+      //         a: setup.a,
+      //         b: setup.b,
+      //         showStdout: setup.showStdout,
+      //         long: setup.long,
+      //         run: argv._[0] === "run"
+      //     });
+      //     v.on("pass", onpass);
+      //     v.on("fail", onfail);
+      //
+      //     if (setup.stdin) {
+      //         setup.stdin.pipe(v);
+      //         setup.stdin.resume();
+      //     }
+      //
+      //     if (setup.a && setup.a.resume) setup.a.resume();
+      //     if (setup.b && setup.b.resume) setup.b.resume();
+      // }, setup.wait || 1);
 
       break;
 
@@ -104,50 +134,50 @@ function main(argv) {
       });
   }
 
-  function onpass () {
-    console.log("# PASS");
-    console.log("\nYour solution to " + current + " passed!");
-    console.log(
-      "\nHere's what the official solution"
-      + " is if you want to compare notes:\n"
-    );
+  // function onpass () {
+  //   console.log("# PASS");
+  //   console.log("\nYour solution to " + current + " passed!");
+  //   console.log(
+  //     "\nHere's what the official solution"
+  //     + " is if you want to compare notes:\n"
+  //   );
+  //
+  //   var src = readFileSync(join(dir, "solution.js"), "utf8");
+  //   src.split("\n").forEach(function (line) {
+  //     console.log("    " + line);
+  //   });
+  //
+  //   updateData("completed", function (xs) {
+  //     if (!xs) xs = [];
+  //     var ix = xs.indexOf(current);
+  //     return ix >= 0 ? xs : xs.concat(current);
+  //   });
+  //
+  //   var completed = getData("completed") || [];
+  //
+  //   var remaining = Object.keys(order).length - completed.length;
+  //   if (remaining === 0) {
+  //     console.log("You've finished all the challenges! Hooray!\n");
+  //   }
+  //   else {
+  //     console.log("You have " + remaining + " challenges left.");
+  //     console.log("Type `delousy` to show the menu.\n");
+  //   }
+  //
+  //   if (setup.close) setup.close();
+  // }
 
-    var src = readFileSync(join(dir, "solution.js"), "utf8");
-    src.split("\n").forEach(function (line) {
-      console.log("    " + line);
-    });
-
-    updateData("completed", function (xs) {
-      if (!xs) xs = [];
-      var ix = xs.indexOf(current);
-      return ix >= 0 ? xs : xs.concat(current);
-    });
-
-    var completed = getData("completed") || [];
-
-    var remaining = Object.keys(order).length - completed.length;
-    if (remaining === 0) {
-      console.log("You've finished all the challenges! Hooray!\n");
-    }
-    else {
-      console.log("You have " + remaining + " challenges left.");
-      console.log("Type `delousy` to show the menu.\n");
-    }
-
-    if (setup.close) setup.close();
-  }
-
-  function onfail () {
-    if (setup.close) setup.close();
-
-    console.log("# FAIL");
-    console.log(
-      "\nYour solution didn't match the expected output."
-      + "\nTry again, or run `delousy run program.js`"
-      + " to see your solution's output."
-    );
-    exitCode = 1;
-  }
+  // function onfail () {
+  //   if (setup.close) setup.close();
+  //
+  //   console.log("# FAIL");
+  //   console.log(
+  //     "\nYour solution didn't match the expected output."
+  //     + "\nTry again, or run `delousy run program.js`"
+  //     + " to see your solution's output."
+  //   );
+  //   exitCode = 1;
+  // }
 
   function getCurrentProblem() {
     var data = getData("current");
@@ -200,12 +230,12 @@ function getData(name) {
   catch (e) {}
 }
 
-function dirFromName(name) {
-  var uglified = name.toLowerCase()
-                     .replace(/\s/g, "_");
-
-  return resolve(__dirname, join("..", "problems", uglified));
-}
+// function dirFromName(name) {
+//   var uglified = name.toLowerCase()
+//                      .replace(/\s/g, "_");
+//
+//   return resolve(__dirname, join("..", "problems", uglified));
+// }
 
 function center (s) {
   var n = (67 - s.length) / 2;
