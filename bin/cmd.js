@@ -1,8 +1,11 @@
+#!/usr/bin/env node
+
 var join             = require("path").join;
 var resolve          = require("path").resolve;
 var createReadStream = require("graceful-fs").createReadStream;
 var readFileSync     = require("graceful-fs").readFileSync;
 var writeFileSync    = require("graceful-fs").writeFileSync;
+var format           = require("util").format;
 
 var minimist = require("minimist");
 var mkdirp   = require("mkdirp");
@@ -40,7 +43,7 @@ function main(argv) {
   switch (argv._[0]) {
     case "list":
       Object.keys(order).forEach(function (name) {
-          console.log(name);
+        console.log(name);
       });
       break;
 
@@ -84,7 +87,9 @@ function main(argv) {
       var opts = {
         completed : getData("completed") || [],
         title     : "BUG CLINIC",
-        names     : Object.keys(order)
+        names     : Object.keys(order).map(function (n) {
+                                             return format("%s (%s)", n, order[n].terse);
+                                           })
       };
 
       if (argv.b || argv.bg){
@@ -162,6 +167,7 @@ function main(argv) {
 }
 
 function printProblem(name) {
+  name = name.split(" ").shift();
   console.log("\n  " + Array(70).join("#"));
   console.log(center("~~  " + name + "  ~~"));
   console.log("  " + Array(70).join("#") + "\n");
@@ -201,7 +207,7 @@ function getData(name) {
 }
 
 function dirFromName(name) {
-  return resolve(__dirname, join("..", "problems", order[name]));
+  return resolve(__dirname, join("..", "problems", order[name].dir));
 }
 
 function center (s) {

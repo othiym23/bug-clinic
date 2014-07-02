@@ -1,15 +1,54 @@
 {
-  "INTAKE"     : "introduction",
-  "TRIAGE"     : "console",
-  "DISINFECT"  : "lint",
-  "MONITOR"    : "bunyan",
-  "TRACES"     : "stacktraces",
-  "TEST"       : "tape",
-  "SCAN"       : "node-debug",
-  "PROBE"      : "trace",
-  "OBSERVE"    : "repl",
-  "INTERVENE"  : "debugger",
-  "OPERATE"    : "inspector",
-  "BIOPSY"     : "heapdump",
-  "POSTMORTEM" : "gdb"
+  "INTAKE": {
+    "terse": "introduction",
+    "dir": "introduction"
+  },
+  "TRIAGE": {
+    "dir": "console",
+    "terse": "console.log and friends"
+  },
+  "DISINFECT": {
+    "dir": "lint",
+    "terse": "eslint & jshint"
+  },
+  "MONITOR": {
+    "dir": "bunyan",
+    "terse": "logging"
+  },
+  "TRACES": {
+    "dir": "stacktraces",
+    "terse": "long stacktraces"
+  },
+  "TEST": {
+    "dir": "tape",
+    "terse": "test cases"
+  },
+  "SCAN": {
+    "dir": "node-debug",
+    "terse": "NODE_DEBUG"
+  },
+  "PROBE": {
+    "dir": "trace",
+    "terse": "dynamic tracing in JS"
+  },
+  "OBSERVE": {
+    "dir": "repl",
+    "terse": "direct interaction"
+  },
+  "INTERVENE": {
+    "dir": "debugger",
+    "terse": "built-in debugger"
+  },
+  "OPERATE": {
+    "dir": "inspector",
+    "terse": "node-inspector"
+  },
+  "BIOPSY": {
+    "dir": "heapdump",
+    "terse": "resource leaks"
+  },
+  "POSTMORTEM": {
+    "dir": "gdb",
+    "terse": "gdb / lldb"
+  }
 }
