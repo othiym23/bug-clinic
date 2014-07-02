@@ -4,11 +4,17 @@ var resolve = require("path").resolve;
 module.exports = function () {
   return {
     getStatement : function getStatement(callback) {
-      readFile(resolve(__dirname, "./problem.txt"), function (error, text) {
+      readFile(
+        resolve(__dirname, "./problem.txt"),
+        {encoding : "utf-8"},
+        dump
+      );
+
+      function dump(error, text) {
         if (error) return callback(error);
 
         callback(null, text);
-      });
+      }
     },
 
     verify : function verify(args, t) {

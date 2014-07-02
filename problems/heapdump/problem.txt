@@ -1,0 +1,30 @@
+Node is a garbage-collected language, but that doesn't mean that it doesn't
+leak resources. In fact, badly-written Node programs can leak an astounding
+amount of memory. Figuring out where all that memory can be a pretty major
+project. Turning on `--trace-gc` will tell you many informative things about
+how the garbage collector operates in practice, but aside from telling you at
+a very coarse level whether your process's memory usage is growing over time,
+it's not very useful.
+
+The single best tool for capturing information about what's going on with
+a Node process's memory is the heapdump module. It needs to be explicitly
+included in your app, but once it's in there, you can capture a snapshot of
+the heap either programmatically from you code, or (similarly to the debugger)
+send the process SIGUSR2 using `kill -SIGUSR2 <process id>`.
+
+What do you do with those heapdumps? Since they're snapshots of the V8 heap,
+you just load them up in the Chrome Developer Tools, by going to the Profiles
+tab, right-clicking in the tab pane, and selecting "Load profile...". The UI
+is semi-self-explanatory. If you load two snapshots, you can see the diff
+between them.
+
+The best rule of thumb for gathering heap snapshots is to wait to capture the
+first snapshot until the app has been running a few minutes, so that all of
+the program code has loaded, the JIT has had a chance to stabilize, and the
+process is in its steady operational state. You want to capture a few heaps,
+because over time there will be a fair amount of variance as the garbage
+collector runs. Interpreting heap snpshots (especially when diffing them) is
+a bit of a black art, and there's no substitute for practice.
+
+By the time you've made it this far, though, you've already mastered a few
+arcane arts, so you should be used to this by now, no?

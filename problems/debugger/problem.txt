@@ -1,0 +1,53 @@
+Although you'd think a debugger would be the first tool to reach for when
+you're talking about debugging, Node developers tend to not use debuggers as
+much. There are a few reasons for this, but there are two main reasons why
+using the Node debugger is difficult enough that most people don't bother:
+
+  * Node's dynamic module system means that you have to wait until a module
+    has been require()d to set function-based breakpoints in it.
+  * The Node event loop is implemented in such a way that it's impossible to
+    step across ticks of the event loop.
+
+It doesn't help that the debugger's UI is obtuse to the point of pain, but
+once you learn a few commands, it's not so bad:
+
+  * s - step in, or go to the next line in the program, stepping in to
+        function calls. The second most useful debugger command.
+  * <enter> - repeat the previous command. *The* most useful debugger
+        command.
+  * n - next command. Like `s`, without stepping into function calls.
+  * o - step out, for when you're not interested in anything else happening in
+        the current function.
+  * c - continue. Just run until the next breakpoint or `debugger` statement
+        is hit.
+
+Speaking of the `debugger` statement, the key to efficiently using
+the Node debugger lies in the `debugger` statement. It's basically a
+breakpoint in code. When you've narrowed down roughly where the issue is
+in your code, put `debugger;` into your code a few lines *before* the
+troublesome line, so you can use the debugger REPL to gather context. If
+you have a test case, it makes things much simpler. This is a somewhat
+tedious process (and you should be careful to scrub out your debugger
+statements when you're done!), but it's a lot easier than trying to deal
+with setting breakpoints.
+
+To get to the debugger's REPL, just type 'repl' at the debugger prompt.
+
+VERY IMPORTANT NOTE: to get out of the debugger REPL and back to the
+debugger prompt, type 'ctrl-c' at the REPL prompt. The command-line
+debugger is modal, which means that you can't use debugger commands in
+the REPL and vice versa.
+
+OTHER IMPORTANT NOTE: The debugger REPL is not as safe as one might hope.
+Every variable that was in scope at the line where execution was paused is
+visible to the REPL, which is sometimes the only way to see what's going on
+inside a closure. However, *sometimes* (and it's not always obvious when),
+trying to evaluate a variable in the REPL will lock up the debugger so hard
+you have to kill the process from the outside. This doesn't mean anything is
+wrong with your program, but it does mean that you'll have to come up with
+another way of getting at the information you want.
+
+Another useful tip is that running `kill -SIGUSR1 <process id>` to a node
+process will put it in debugger mode, so you can run `node debug -p <process
+id>` on it from the outside. Think hard before doing this against processes in
+production, though, because the Node debugger is not super safe.

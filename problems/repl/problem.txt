@@ -1,0 +1,6 @@
+Although it's not always possible, it can be incredibly satisfying to just
+load part of your program into node and poke at it interactively. The node
+REPL (read-eval-print loop) is pretty bare-bones, though, and so it's worth
+looking at one of the many more elaborate modules that build on the REPL.
+replpad adds a ton of features, including reloading your source files when
+they're changed.

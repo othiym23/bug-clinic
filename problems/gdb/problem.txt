@@ -1,0 +1,37 @@
+gdb, and its next-generation descendent, lldb, are versatile, mature
+tools that are also kind of terrible, and only play nice with Node if
+you have a custom build of a recent version of Node that has support for
+gdb / lldb explicitly built into it.
+
+TODO: stick trevnorris instructions for using gdb-jit here
+
+There is one common use case for gdb all with Node: your code triggers
+a failure in one of the assertions in Node's C++ layer. In that case,
+here's what you run:
+
+    gdb `which node`
+    run path/to/command.js <and> <other> <args>
+    ...time passes, node crashes...
+    thread apply bt all
+
+or for lldb:
+
+    lldb `which node`
+    run path/to/command.js <and> <other> <args>
+    bt all
+
+This will give you a set of backtraces for all the active threads in Noe
+at the time the program crashed, which may be useful to Node developers
+experienced with Node's C++ internals.
+
+Also, if you have coredumps turned on on your system, you can call
+process.abort() to dump core from your Node process. The nice thing about core
+files is that they support postmortem debugging: as long as you have the
+binary for the version of node that crashed, and the coredump itself, you can
+continue to poke around inside the core file.
+
+Also, if you have access to a SmartOS vm, SmartOS's low-level debugger, mdb,
+has recently been taught how to read core dumps from Linux. mdb is a much more
+powerful and better-designed debugger than gdb / lldb, but it is at least as
+challenging to learn, and the number of people who have mastered it is
+probably in the low double figures.

@@ -1,0 +1,38 @@
+Most often, a stacktrace is your first sign that something has gone
+wrong in your code. Learning to read them correctly is a critical skill
+for Node developers. Almost is important is learning how to make them
+useful. This is not useful:
+
+    SyntaxError: Unexpected token u
+        at Object.parse (native)
+        at /data/app/important-program.js:259:57
+        at fs.js:207:20
+        at Object.oncomplete (fs.js:107:15)
+
+You open up important-program.js, and it's a call to JSON.parse in a
+closure returned from an anonymous function. Great. There's no way to
+figure out from the stacktrace what file it was trying to read, or
+necessarily what function was making the call in the first place. The
+stack has been reset, your program has crashed, and any interesting
+state about what was happening when things went haywire has been lost.
+
+You *could* fix this with a lot of logging, but sometimes you need more
+context to even get started. This is where "long stacktrace" modules
+come in handy. They do some low-level manipulation of the Node runtime
+to allow them to stitch all of the asynchronous call stacks into one
+long stacktrace. There are many modules that offer this functionality,
+but the most popular is `longjohn`, with `stackup` being a new contender
+that takes advantage of the experimental asyncListener API that will
+eventually be part of Node core.
+
+Long stacktraces are not a silver bullet:
+
+  * You probably don't want to be using a long stacktrace module in
+    production. They add a significant amount of overhead, as they
+    can't know in advance which calls are going to result in errors,
+    and creating all those Errors is expensive.
+  * If regular asynchronous stacktraces give you too little information,
+    long stacktraces can give you way too much, since frequently
+    stacktraces will extend all the way back to when the process
+    started. Learning to weed out extraneous information is an acquired
+    skill.

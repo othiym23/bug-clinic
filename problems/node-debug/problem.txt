@@ -1,0 +1,26 @@
+MONITOR mentioned that Node does have some low-level built-in support for
+logging. This is controlled with the NODE_DEBUG environment variable, and is
+useful in situations in which you're uncertain about how your code is
+interfacing with Node's internals. Using it is pretty simple: just set
+NODE_DEBUG to a comma-delimited list of the names of the modules you want to
+debug, like so:
+
+    NODE_DEBUG=module,http node my-problem-app.js
+
+The modules that take advantage of this setting vary from version to
+version of node, but at the time this was last updated, the modules that
+use NODE_DEBUG to specify logging include 'cluster', 'net', 'http',
+'fs', 'tls', 'module', and 'timers'. Be warned that the log output
+varies from cryptic to incredibly verbose, but if you're trying to do
+something fancy with the module system or understand what's going on
+with your outbound HTTP requests, sometimes NODE_DEBUG is a lifeline. To
+keep debug logging from being a drag on performance, disabled NODE_DEBUG
+calls are mapped to a no-op function.
+
+In older versions of Node NODE_DEBUG debugging was handled in an ad hoc
+fashion, but in Node 0.11 (and presumably in Node 0.12), there is a
+new function in the util module, `util.debuglog()` that you can use in
+your own code (the next section of this workshopper will discuss a more
+general way of doing this). If you want access to this functionality and
+you're not yet running on Node 0.11, the `debuglog` module is a simple
+backport of this functionality.
