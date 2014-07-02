@@ -33,6 +33,7 @@ process.on("exit", function (code) {
   if (code === 0 && exitCode) process.exit(exitCode);
 });
 
+var current;
 function main(argv) {
   mkdirp.sync(dataDir);
 
@@ -48,7 +49,7 @@ function main(argv) {
       break;
 
     case "current":
-      var current = getData("current");
+      current = getData("current");
       console.log(current);
       break;
 
@@ -62,9 +63,9 @@ function main(argv) {
 
     case "verify":
     case "run":
-      var problem = getCurrentProblem();
+      current = getCurrentProblem();
 
-      var dir = dirFromName(problem);
+      var dir = dirFromName(current);
       var setup = require(dir)({ run: argv._[0] === "run" });
       setTimeout(function () {
         var verifier = setup.verify;
