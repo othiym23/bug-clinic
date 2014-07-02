@@ -4,7 +4,7 @@
 
 [![NPM](https://nodei.co/npm/bug-clinic.png?downloads=true&stars=true)](https://nodei.co/npm/bug-clinic/)
 
-![bug-clinic-screen](https://cloud.githubusercontent.com/assets/418097/3460590/d4e81744-0218-11e4-8173-a541d8543e8a.png =410x326)
+<img width=410 height=326 alt="bug-clinic screenshot" src="https://cloud.githubusercontent.com/assets/418097/3460590/d4e81744-0218-11e4-8173-a541d8543e8a.png" />
 
 ***please note this is hella unfinished, but you'll probably learn something anyway***
 
