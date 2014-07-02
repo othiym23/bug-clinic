@@ -118,7 +118,8 @@ function main(argv) {
       + " is if you want to compare notes:\n"
     );
 
-    var src = readFileSync(join(dir, "solution.js"), "utf8");
+    var solution = argv._[1] === "bonus" ? "solution-bonus.js" : "solution.js";
+    var src = readFileSync(join(dir, solution), "utf8");
     src.split("\n").forEach(function (line) {
       console.log("    " + line);
     });
