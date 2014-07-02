@@ -14,7 +14,7 @@ var showMenu = require("../lib/menu.js");
 var order   = require("../data/order.json");
 var dataDir = resolve(
   process.env.HOME || process.env.USERPROFILE,
-  ".config/delousy"
+  ".config/bug-clinic"
 );
 
 var problems = {};
@@ -83,7 +83,7 @@ function main(argv) {
     default:
       var opts = {
         completed : getData("completed") || [],
-        title     : "DELOUSY",
+        title     : "BUG CLINIC",
         names     : Object.keys(order)
       };
 
@@ -131,7 +131,7 @@ function main(argv) {
     }
     else {
       console.log("You have " + remaining + " challenges left.");
-      console.log("Type `delousy` to show the menu.\n");
+      console.log("Type `bug-clinic` to show the menu.\n");
     }
 
     if (setup.close) setup.close();
@@ -143,7 +143,7 @@ function main(argv) {
     console.log("# FAIL");
     console.log(
       "\nYour solution didn't match the expected output."
-      + "\nTry again, or run `delousy run program.js`"
+      + "\nTry again, or run `bug-clinic run program.js`"
       + " to see your solution's output."
     );
     exitCode = 1;
@@ -172,7 +172,7 @@ function printProblem(name) {
     console.log(text);
     console.log(
       "\nTo verify your program, run: " +
-      "`delousy verify program.js`.\n"
+      "`bug-clinic verify program.js`.\n"
     );
 
     updateData("current", function () { return name; });

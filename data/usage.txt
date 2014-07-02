@@ -1,26 +1,26 @@
 usage:
 
-  delousy
+  bug-clinic
 
     Show a menu to interactively select a treatment option.
 
-  delousy list
+  bug-clinic list
 
     Show a newline-separated list of all the treatments.
 
-  delousy select NAME
+  bug-clinic select NAME
 
     Select a treatment.
 
-  delousy current
+  bug-clinic current
 
     Show the currently selected treatment.
 
-  delousy run program.js
+  bug-clinic run program.js
 
     Run your program against the selected input.
 
-  delousy verify program.js
+  bug-clinic verify program.js
 
     Verify your program against the expected output.
 
