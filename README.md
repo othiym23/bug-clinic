@@ -9,7 +9,7 @@
 ***please note this is hella unfinished, but you'll probably learn something anyway***
 
 ```sh
-$ sudo npm -g install bug-clinic
+$ sudo npm --global install bug-clinic
 $ bug-clinic
 ```
 
