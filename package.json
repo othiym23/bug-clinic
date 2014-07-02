@@ -39,6 +39,7 @@
     "jshint": "^2.5.1",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
+    "moment": "^2.7.0",
     "terminal-menu": "^0.3.2"
   }
 }

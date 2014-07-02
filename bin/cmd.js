@@ -6,7 +6,6 @@ var writeFileSync    = require("graceful-fs").writeFileSync;
 
 var minimist = require("minimist");
 var mkdirp   = require("mkdirp");
-var concat   = require("concat-stream");
 
 // var adventure = require("adventure");
 var verify = require("adventure-verify");
@@ -18,7 +17,10 @@ var dataDir = resolve(
   ".config/delousy"
 );
 
-// var delousy = adventure("delousy");
+var problems = {};
+Object.keys(order).forEach(function (name) {
+  problems[name] = require(dirFromName(name))({name : name});
+});
 
 main(minimist(process.argv.slice(2)));
 
@@ -58,55 +60,23 @@ function main(argv) {
     case "verify":
     case "run":
       var problem = getCurrentProblem();
-      var verifier = require(join("../problems", order[problem])).verify;
 
-      var test = verify(null, verifier);
-      if (argv._[0] === "verify") {
-        var output = "";
-        var tapStream = test(argv._.slice(1), function (ok) {
-          if (!ok) {
-            console.log("Doctor, your diagnosis was unsound:");
-            console.log(output);
-          }
+      var dir = dirFromName(problem);
+      var setup = require(dir)({ run: argv._[0] === "run" });
+      setTimeout(function () {
+        var verifier = setup.verify;
+        var test = verify(null, verifier);
+        if (argv._[0] === "verify") {
+          test(argv._.slice(1), function (ok) {
+            if (!ok) return onfail();
 
-          console.log("SUCCESS! on to the next one.");
-        });
-        tapStream.pipe(concat(function (data) { output = data; }));
-      }
-      else { // run
-        test(argv._.slice(1), function () {}).pipe(process.stdout);
-      }
-
-      // delousy.add(problem, function () {
-      //   return require(join("../problems", order[problem]));
-      // });
-
-      // delousy.execute(argv._);
-
-
-      // var dir = dirFromName(problem);
-      // var setup = require(resolve(dir, "setup.js"))({ run: argv._[0] === "run" });
-      // setTimeout(function () {
-      //     var a = argv._.slice(1).concat(setup.aArgs || setup.args || []);
-      //     var b = [ dir + "/solution.js" ].concat(setup.bArgs || setup.args || []);
-      //     var v = verify(a, b, {
-      //         a: setup.a,
-      //         b: setup.b,
-      //         showStdout: setup.showStdout,
-      //         long: setup.long,
-      //         run: argv._[0] === "run"
-      //     });
-      //     v.on("pass", onpass);
-      //     v.on("fail", onfail);
-      //
-      //     if (setup.stdin) {
-      //         setup.stdin.pipe(v);
-      //         setup.stdin.resume();
-      //     }
-      //
-      //     if (setup.a && setup.a.resume) setup.a.resume();
-      //     if (setup.b && setup.b.resume) setup.b.resume();
-      // }, setup.wait || 1);
+            onpass();
+          });
+        }
+        else { // run
+          test(argv._.slice(1), function () {}).pipe(process.stdout);
+        }
+      }, setup.wait || 1);
 
       break;
 
@@ -134,50 +104,50 @@ function main(argv) {
       });
   }
 
-  // function onpass () {
-  //   console.log("# PASS");
-  //   console.log("\nYour solution to " + current + " passed!");
-  //   console.log(
-  //     "\nHere's what the official solution"
-  //     + " is if you want to compare notes:\n"
-  //   );
-  //
-  //   var src = readFileSync(join(dir, "solution.js"), "utf8");
-  //   src.split("\n").forEach(function (line) {
-  //     console.log("    " + line);
-  //   });
-  //
-  //   updateData("completed", function (xs) {
-  //     if (!xs) xs = [];
-  //     var ix = xs.indexOf(current);
-  //     return ix >= 0 ? xs : xs.concat(current);
-  //   });
-  //
-  //   var completed = getData("completed") || [];
-  //
-  //   var remaining = Object.keys(order).length - completed.length;
-  //   if (remaining === 0) {
-  //     console.log("You've finished all the challenges! Hooray!\n");
-  //   }
-  //   else {
-  //     console.log("You have " + remaining + " challenges left.");
-  //     console.log("Type `delousy` to show the menu.\n");
-  //   }
-  //
-  //   if (setup.close) setup.close();
-  // }
+  function onpass () {
+    console.log("# PASS");
+    console.log("\nYour solution to " + current + " passed!");
+    console.log(
+      "\nHere's what the official solution"
+      + " is if you want to compare notes:\n"
+    );
 
-  // function onfail () {
-  //   if (setup.close) setup.close();
-  //
-  //   console.log("# FAIL");
-  //   console.log(
-  //     "\nYour solution didn't match the expected output."
-  //     + "\nTry again, or run `delousy run program.js`"
-  //     + " to see your solution's output."
-  //   );
-  //   exitCode = 1;
-  // }
+    var src = readFileSync(join(dir, "solution.js"), "utf8");
+    src.split("\n").forEach(function (line) {
+      console.log("    " + line);
+    });
+
+    updateData("completed", function (xs) {
+      if (!xs) xs = [];
+      var ix = xs.indexOf(current);
+      return ix >= 0 ? xs : xs.concat(current);
+    });
+
+    var completed = getData("completed") || [];
+
+    var remaining = Object.keys(order).length - completed.length;
+    if (remaining === 0) {
+      console.log("You've finished all the challenges! Hooray!\n");
+    }
+    else {
+      console.log("You have " + remaining + " challenges left.");
+      console.log("Type `delousy` to show the menu.\n");
+    }
+
+    if (setup.close) setup.close();
+  }
+
+  function onfail () {
+    if (setup.close) setup.close();
+
+    console.log("# FAIL");
+    console.log(
+      "\nYour solution didn't match the expected output."
+      + "\nTry again, or run `delousy run program.js`"
+      + " to see your solution's output."
+    );
+    exitCode = 1;
+  }
 
   function getCurrentProblem() {
     var data = getData("current");
@@ -192,21 +162,21 @@ function main(argv) {
 }
 
 function printProblem(name) {
-    console.log("\n  " + Array(70).join("#"));
-    console.log(center("~~  " + name + "  ~~"));
-    console.log("  " + Array(70).join("#") + "\n");
+  console.log("\n  " + Array(70).join("#"));
+  console.log(center("~~  " + name + "  ~~"));
+  console.log("  " + Array(70).join("#") + "\n");
 
-    var dir = join(__dirname, "..", "problems", order[name]);
-    var file = resolve(dir, "problem.txt");
+  problems[name].getStatement(function (error, text) {
+    if (error) throw error;
+
+    console.log(text);
+    console.log(
+      "\nTo verify your program, run: " +
+      "`delousy verify program.js`.\n"
+    );
+
     updateData("current", function () { return name; });
-    var rs = createReadStream(file);
-    rs.on("close", function () {
-        console.log(
-                "\nTo verify your program, run: "
-                + "`delousy verify program.js`.\n"
-        );
-    });
-    rs.pipe(process.stdout);
+  });
 }
 
 function updateData(name, fn) {
@@ -230,12 +200,9 @@ function getData(name) {
   catch (e) {}
 }
 
-// function dirFromName(name) {
-//   var uglified = name.toLowerCase()
-//                      .replace(/\s/g, "_");
-//
-//   return resolve(__dirname, join("..", "problems", uglified));
-// }
+function dirFromName(name) {
+  return resolve(__dirname, join("..", "problems", order[name]));
+}
 
 function center (s) {
   var n = (67 - s.length) / 2;
