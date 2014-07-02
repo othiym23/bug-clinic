@@ -16,6 +16,7 @@ $ bug-clinic
 ## Contributors
 
 * [Jacob Groundwater](https://github.com/groundwater)
+* [Max Ogden](https://github.com/maxogden)
 
 ## License
 

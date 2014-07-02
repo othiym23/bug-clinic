@@ -26,6 +26,10 @@
     "email": "ogd@aoaioxxysz.net",
     "url": "http://driftglass.org"
   },
+  "contributors": [
+    "max ogden",
+    "Jacob Groundwater <groundwater@gmail.com>"
+  ],
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/othiym23/bug-clinic/issues"
