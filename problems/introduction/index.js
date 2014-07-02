@@ -1,4 +1,4 @@
-var spawn = require("child_process").spawn;
+var spawn = require("win-spawn");
 var readFile = require("graceful-fs").readFile;
 var resolve = require("path").resolve;
 var format = require("util").format;
