@@ -3,7 +3,10 @@ tools that are also kind of terrible, and only play nice with Node if
 you have a custom build of a recent version of Node that has support
 for gdb / lldb explicitly built into it.
 
-TODO: stick trevnorris instructions for using gdb-jit here
+Using a binary debugger with a JIT is pretty tricky, but the V8 team
+has anticipated this use case, and if you run your node processes with
+the options `--gdbjit --gdbjit-full`, you'll get much more usable
+stacktraces in both gdb and lldb.
 
 There is one common use case for gdb all with Node: your code triggers
 a failure in one of the assertions in Node's C++ layer. In that case,
