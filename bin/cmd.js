@@ -9,6 +9,8 @@ var format           = require("util").format;
 
 var minimist = require("minimist");
 var mkdirp   = require("mkdirp");
+var pager    = require("default-pager");
+var resumer  = require("resumer");
 
 // var adventure = require("adventure");
 var verify = require("adventure-verify");
@@ -170,20 +172,24 @@ function main(argv) {
 
 function printProblem(name) {
   name = name.split(" ").shift();
-  console.log("\n  " + Array(70).join("#"));
-  console.log(center("~~  " + name + "  ~~"));
-  console.log("  " + Array(70).join("#") + "\n");
-
   problems[name].getStatement(function (error, text) {
     if (error) throw error;
 
-    console.log(text);
-    console.log(
-      "\nTo verify your program, run: " +
-      "`bug-clinic verify program.js`.\n"
+    var out = [];
+    out.push("\n  " + Array(70).join("#"));
+    out.push(center("~~  " + name + "  ~~"));
+    out.push("  " + Array(70).join("#") + "\n");
+
+    out.push(text);
+
+    out.push(
+      "\nTo verify your program, run: `bug-clinic verify program.js`.\n"
     );
 
-    updateData("current", function () { return name; });
+    var stream = resumer().queue(out.join("\n")).end();
+    stream.pipe(pager(function () {
+      updateData("current", function () { return name; });
+    }));
   });
 }
 

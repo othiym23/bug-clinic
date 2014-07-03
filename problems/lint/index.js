@@ -9,14 +9,8 @@ module.exports = function () {
       readFile(
         resolve(__dirname, "./problem.txt"),
         {encoding : "utf-8"},
-        dump
+        callback
       );
-
-      function dump(error, text) {
-        if (error) return callback(error);
-
-        callback(null, text);
-      }
     },
 
     verify : function verify(args, t) {

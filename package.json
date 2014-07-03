@@ -39,12 +39,14 @@
     "adventure": "^2.4.0",
     "adventure-verify": "^2.1.1",
     "concat-stream": "^1.4.6",
+    "default-pager": "^1.0.1",
     "eslint": "^0.6.2",
     "graceful-fs": "^3.0.2",
     "jshint": "^2.5.1",
     "minimist": "^0.2.0",
     "mkdirp": "^0.5.0",
     "moment": "^2.7.0",
+    "resumer": "0.0.0",
     "terminal-menu": "^0.3.2",
     "win-spawn": "^2.0.0"
   }
