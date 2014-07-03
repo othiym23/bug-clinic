@@ -5,8 +5,8 @@ might be happening, pretty soon it's going to be a real chore to sort
 through your program's output looking for the output that's relevant.
 This is the job logs are intended to solve.
 
-   (As a side note, if you've never read Twelve-Factor Apps, now
-    is a good time to read it. It has a very different take on
+   (As a side note, if you've never read The Twelve-Factor App
+    Manifesto, now is a good time. It has a very different take on
     how logs should work, although the underlying principles are
     similar: http://12factor.net/logs)
 
@@ -28,4 +28,60 @@ Node has some low-level logging facilities, which we'll get to later,
 but they're intended for use by the developers of the core Node
 platform. In general, the Node world has settled on newline-delimited
 JSON objects for logging. bunyan is the established favorite, although
-the much newer bole is growing more popular quickly.
+the much newer bole is gaining popularity quickly.
+
+To get your head around using logging for debugging, fix the program
+below. It gets passed a logger (with at least `log.info()` and
+`log.error()` functions defined) and a callback. When things are
+working, `cb` should be called at the end with the value
+--> 2964 <--. Log an object containing the value of value and the
+currently active function *after* each time `value` is assigned or
+changed. Each call should look like this:
+
+   // "scenario" is the name of the currently executing function
+   log.info({value : value}, "scenario");
+
+When you figure out what the error is, make a call to log.error()
+indicating what the problem is *before* logging what `value` is at
+that point once you've fixed things:
+
+    module.exports = scenario;
+
+    function scenario(log, cb) {
+      function start() {
+        process.nextTick(thing);
+      }
+
+      var value = 97;
+
+      function foo() {
+        value *= 13;
+        cb(value);
+      }
+
+      start();
+
+      function racer() {
+        value &= 255;
+        setTimeout(foo, 0);
+      }
+
+      value = 213;
+
+      function thing() {
+        value += 131;
+        process.nextTick(racer);
+      }
+    }
+
+As a hint, you should be making 6 logging calls, including the call to
+log.error.
+
+Using Bunyan to test your solution as you go is pretty easy:
+
+    var bunyan = require("bunyan");
+    var log = bunyan.createLogger({name: "scenario"});
+
+Then, when you run your program, pipe the output through the Bunyan CLI:
+
+node my-scenario-runner.js | bunyan
