@@ -18,24 +18,32 @@ module.exports = function () {
         return t.end();
       }
 
-      var scenario = require(resolve(process.cwd(), filename));
+      var scenario;
+      t.doesNotThrow(function () {
+        scenario = require(resolve(process.cwd(), filename));
+      }, "loaded scenario OK");
 
-      var output = [];
-      scenario(createLog(output), function (value) {
-        t.equal(value, 2964, "got expected output value");
-        t.equal(output.length, 6, "6 messages were logged");
-        validate(0, "info", "scenario", 97);
-        validate(2, "info", "scenario", 97);
-        validate(3, "info", "thing", 228);
-        validate(4, "info", "racer", 228);
-        validate(5, "info", "foo", 2964);
-        t.ok(
-          output[1] && output[1][0] === "error",
-          "found error in the expected place"
-        );
+      if (scenario) {
+        var output = [];
+        scenario(createLog(output), function (value) {
+          t.equal(value, 2964, "got expected output value");
+          t.equal(output.length, 6, "6 messages were logged");
+          validate(0, "info", "scenario", 97);
+          validate(2, "info", "scenario", 97);
+          validate(3, "info", "thing", 228);
+          validate(4, "info", "racer", 228);
+          validate(5, "info", "foo", 2964);
+          t.ok(
+            output[1] && output[1][0] === "error",
+            "found error in the expected place"
+          );
 
+          t.end();
+        });
+      }
+      else {
         t.end();
-      });
+      }
 
       function validate(i, level, name, value) {
         var entry = output[i];

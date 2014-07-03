@@ -23,6 +23,6 @@ function scenario(log, cb) {
 
   function thing() {
     value += 131;
-    process.nextTick(racer);
+    setImmediate(racer);
   }
 }
