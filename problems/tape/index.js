@@ -18,7 +18,14 @@ module.exports = function () {
         return t.end();
       }
 
-      // TODO: stuff here
+      var scenario;
+      t.doesNotThrow(function () {
+        scenario = require(resolve(process.cwd(), filename));
+      }, "loaded scenario OK");
+
+      if (scenario) scenario(t);
+
+      t.end();
     }
   };
 };
