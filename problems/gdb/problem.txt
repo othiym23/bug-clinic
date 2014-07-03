@@ -1,20 +1,7 @@
 gdb, and its next-generation descendent, lldb, are versatile, mature
-tools that are also kind of terrible, and only play nice with Node if
-you have a custom build of a recent version of Node that has support
-for gdb / lldb explicitly built into it. You'll need to configure your
-Node binary like so:
-
-    ./configure --gdb --without-snapshot --debug
-
-Using a binary debugger with a JIT is pretty tricky, but the V8 team
-has anticipated this use case, and if you run your node processes with
-the options `--gdbjit --gdbjit-full`, you'll get much more usable
-stacktraces in both gdb and lldb. Do it like so (run from the root
-directory of the Node build):
-
-    gdb -d lib/ -d src/ --args ./node \
-        --gdbjit --gdbjit-full /path/to/app.js
-
+tools that are also kind of terrible. However, when you need them,
+there isn't really a good substitute, so here's how you do it when you
+need to.
 
 There is one common use case for gdb all with Node: your code triggers
 a failure in one of the assertions in Node's C++ layer. In that case,
@@ -44,8 +31,24 @@ that they support postmortem debugging: as long as you have the binary
 for the version of node that crashed, and the coredump itself, you can
 continue to poke around inside the core file.
 
+A sad thing about GDB is that it will only play nice with Node if you
+have a custom build of a recent version of Node that has support for
+gdb / lldb explicitly built into it. You'll need to configure your Node
+binary like so:
+
+    ./configure --gdb --without-snapshot --debug
+
+Using a binary debugger with a JIT is pretty tricky, but the V8 team
+has anticipated this use case, and if you run your node processes with
+the options `--gdbjit --gdbjit-full`, you'll get much more usable
+stacktraces in both gdb and lldb. Do it like so (run from the root
+directory of the Node build):
+
+    gdb -d lib/ -d src/ --args ./node \
+        --gdbjit --gdbjit-full /path/to/app.js
+
 If you have access to a SmartOS vm, SmartOS's low-level debugger, mdb,
 has recently been taught how to read core dumps from Linux. mdb is a
-much more powerful and better-designed debugger than gdb / lldb, but it
-is at least as challenging to learn, and the number of people who have
-mastered it is probably in the low double figures.
+much more powerful and better-designed debugger than gdb / lldb, but
+it is at least as challenging to learn, and the number of people who
+have mastered it is probably in the low double figures.
