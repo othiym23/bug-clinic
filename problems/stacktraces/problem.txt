@@ -16,14 +16,14 @@ necessarily what function was making the call in the first place. The
 stack has been reset, your program has crashed, and any interesting
 state about what was happening when things went haywire has been lost.
 
-You *could* fix this with a lot of logging, but sometimes you need
-more context to even get started. This is where "long stacktrace"
-modules come in handy. They do some low-level manipulation of the
-Node runtime to allow them to stitch all of the asynchronous call
-stacks into one long stacktrace. There are many modules that offer
-this functionality, but the most popular is `longjohn`, with `stackup`
-being a new contender that takes advantage of the experimental
-asyncListener API that will eventually be part of Node core.
+You *could* fix this with a lot of logging, but sometimes you need more
+context to even get started. This is where "long stacktrace" modules
+come in handy. They do some low-level manipulation of the Node runtime
+to allow them to stitch all of the asynchronous call stacks into one
+long stacktrace. There are many modules that offer this functionality,
+but when this was written, the most reliable is `stackup`, which takes
+advantage of the experimental new asyncListener API that will eventually
+be part of Node core.
 
 Long stacktraces are not a silver bullet:
 
@@ -36,3 +36,37 @@ Long stacktraces are not a silver bullet:
    frequently stacktraces will extend all the way back to when the
    process started. Learning to weed out extraneous information is an
    acquired skill.
+
+As an example, what happens when you run this program with bad input?
+
+    var readFile = require("fs").readFile;
+
+    module.exports = scenario;
+
+    function scenario(jsonPath, cb) {
+      readFile(jsonPath, {encoding : "utf8"}, function (error, contents) {
+        cb(error, JSON.parse(contents));
+      });
+    }
+
+The challenge here is to figure out how to get a stacktrace that shows
+the bug, and to get the long stacktrace to the verifier by passing the
+Error you get to the callback. You will probably need to use either
+domains or the trycatch module, because a simple try / catch won't
+work. If you don't know domains, read the Node API documentation on
+them, or use this brutally abbreviated primer:
+
+    var domain = require("domain");
+
+    function doSomethingDangerousAndAsync(cb) {
+      // create a new domain
+      var d = domain.create();
+
+      // "handle" the error (OMG DON'T DO THIS IN PRODUCTION CODE)
+      d.on("error", cb);
+
+      // use the domain
+      d.run(function () {
+        doDangerousAsyncThing(cb);
+      });
+    }

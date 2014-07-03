@@ -12,7 +12,6 @@ var mkdirp   = require("mkdirp");
 var pager    = require("default-pager");
 var resumer  = require("resumer");
 
-// var adventure = require("adventure");
 var verify = require("adventure-verify");
 var showMenu = require("../lib/menu.js");
 
