@@ -8,7 +8,7 @@ level whether your process's memory usage is growing over time, it's
 not very useful.
 
 The single best tool for capturing information about what's going
-on with a Node process's memory is the heapdump module. It needs to
+on with a Node process's memory is the heapdump package. It needs to
 be explicitly included in your app, but once it's in there, you can
 capture a snapshot of the heap either programmatically from you code,
 or (similarly to the debugger) send the process SIGUSR2 using `kill
