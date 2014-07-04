@@ -1,6 +1,6 @@
 {
   "name": "bug-clinic",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Teach yourself how to debug Node apps more better.",
   "bin": {
     "bug-clinic": "bin/cmd.js"
