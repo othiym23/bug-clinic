@@ -21,7 +21,8 @@ to figure out and fix what's wrong with this program:
 You can start with this config file for jshint:
 
     {
-        "node": true
+        "node": true,
+        "undef": true
     }
 
 Put it in a file named jshintrc, and then run jshint with
