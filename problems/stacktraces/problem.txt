@@ -1,6 +1,6 @@
 Most often, a stacktrace is your first sign that something has gone
 wrong in your code. Learning to read them correctly is a critical
-skill for Node developers. Almost is important is learning how to make
+skill for Node developers. Almost as important is learning how to make
 them useful. This is not useful:
 
     SyntaxError: Unexpected token u
