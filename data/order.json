@@ -1,39 +1,48 @@
 {
   "INTAKE": {
     "terse": "introduction",
-    "dir": "introduction"
+    "dir": "introduction",
+    "ready": true
   },
   "TRIAGE": {
     "dir": "console",
-    "terse": "console.log and friends"
+    "terse": "console.log and friends",
+    "ready": true
   },
   "DISINFECT": {
     "dir": "lint",
-    "terse": "eslint & jshint"
+    "terse": "eslint & jshint",
+    "ready": true
   },
   "MONITOR": {
     "dir": "bunyan",
-    "terse": "logging"
+    "terse": "logging",
+    "ready": true
   },
   "TRACES": {
     "dir": "stacktraces",
-    "terse": "long stacktraces"
+    "terse": "long stacktraces",
+    "ready": true
   },
   "TEST": {
     "dir": "tape",
-    "terse": "test cases"
+    "terse": "test cases",
+    "ready": true
   },
   "SCAN": {
     "dir": "node-debug",
-    "terse": "NODE_DEBUG"
+    "terse": "NODE_DEBUG",
+    "ready": true
   },
   "PROBE": {
     "dir": "trace",
-    "terse": "dynamic tracing in JS"
+    "terse": "dynamic tracing in JS",
+    "ready": true
   },
   "OBSERVE": {
     "dir": "repl",
-    "terse": "direct interaction"
+    "terse": "direct interaction",
+    "ready": true
   },
   "INTERVENE": {
     "dir": "debugger",

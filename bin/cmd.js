@@ -90,8 +90,11 @@ function main(argv) {
         completed : getData("completed") || [],
         title     : "BUG CLINIC",
         names     : Object.keys(order).map(function (n) {
-                                             return format("%s (%s)", n, order[n].terse);
-                                           })
+                                              return format("%s (%s)", n, order[n].terse);
+                                            }),
+        ready     : Object.keys(order).filter(function (n) {
+                                                return order[n].ready;
+                                              })
       };
 
       if (argv.b || argv.bg){
