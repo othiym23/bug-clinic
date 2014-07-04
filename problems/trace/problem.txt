@@ -32,3 +32,36 @@ listening for trace data is completely separated from the program
 emitting trace events. The main downside is that it's still pretty
 labor-intensive getting all the probes into your program in the first
 place.
+
+So! Let's see how this works! Write a web server instrumented using
+jstrace. The server should return one of two responses. When it gets a
+GET response to /prognosis, it should return a status code of 200 and
+a payload of '{"ok":true}'. For ALL other requests, it should return a
+status code of 404 and a payload of '{"error":"notfound"}'. It should
+also print the message "up" to standard error when it's listening, so
+the verifier knows it's ready for requests.
+
+It should include two jstrace probes:
+
+1. At the beginning of the response handler, "request:start", with
+   a payload object that includes the URL of the request (as "url");
+2. Immediately after calling `res.end()` to send the response body,
+   "request:end", with a payload object that includes the HTTP status
+   code as "statusCode", and the response body (as a JavaScript
+   object) with the name "body".
+
+You should be able to start your server, run `jstrace -p <server
+pid>` with the tracer script below, and see the status codes and URLs
+being printed to the terminal as you hit your server with curl:
+
+    module.exports = {
+      local : function (traces) {
+        traces.on("request:start", function (trace) {
+          console.log(trace.url);
+        });
+
+        traces.on("request:end", function (trace) {
+          console.error(trace.statusCode);
+        });
+      }
+    };
