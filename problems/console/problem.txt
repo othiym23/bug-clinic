@@ -22,11 +22,39 @@ Two things to know about these functions:
 
 For debugging, there are a few more useful methods:
 
-  console.dir(object): call util.inspect() on `object`, print results
   console.trace(label): dump stacktrace at line trace is called, with label
   console.time(label) / console.timeEnd(label): quick & dirty benchmarking
   console.assert(expression, arguments): assert that expression is true
+  console.dir(object): call util.inspect() on `object`, print results
 
 In day-to-day debugging, console.error, console.dir and console.trace
 are the most useful of these functions. They will give you the why,
 the what, and the where without requiring a bunch of extra effort.
+
+Here's a simple exercise to get you comfortable with using the console
+methods. Replace the comments in the following program with the relevant
+calls to the console API:
+
+    // scenario.js
+    var fs = require("fs");
+
+    var peach = function (obj) {
+      // trace the message "traced"
+      // dump obj to stdout
+    };
+
+    var bowser = function (callback) {
+      fs.readFile(process.argv[2], {encoding : "utf8"}, callback);
+    };
+
+    var koopa = function (error, file) {
+      // handle error by printing something to stderr
+
+      peach(JSON.parse(file));
+    };
+
+    bowser(koopa);
+
+If you want some sample JSON to play with, store the following in
+`test-input.json` and then parse it by running `node scenario.js
+test-input.json`.
