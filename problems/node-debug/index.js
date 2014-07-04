@@ -20,38 +20,35 @@ module.exports = function () {
       }
 
       var server = spawn(
-        "/usr/local/bin/node",
+        "node",
         [resolve(__dirname, "./server.js")],
-        {encoding : "utf8", env : {"NODE_DEBUG" : "http"}}
+        {env : {"NODE_DEBUG" : "http", "PATH" : process.env.PATH}}
       );
 
       var out = "", err = "";
       server.stdout.on("data", function (data) {
-        out += data;
+        console.log(data.toString("utf8").trim());
+        out += data.toString("utf8");
         if (out.match(/listening/)) {
-          var client = spawn(
-            "/usr/local/bin/node",
-            [resolve(process.cwd(), filename)],
-            {encoding : "utf8"}
-          );
+          var client = spawn("node", [resolve(process.cwd(), filename)]);
 
           var cout = "", cerr = "";
-          client.stdout.on("data", function (data) { cout += data; });
-          client.stderr.on("data", function (data) {
-            cerr += data;
-          });
+          client.stdout.on("data", function (data) { cout += data.toString("utf8"); });
+          client.stderr.on("data", function (data) { cerr += data.toString("utf8"); });
 
           client.on("close", function (code) {
             t.equal(code, 0, "exited without errors");
-            t.equal(cout, "BODY: hello\n");
-            t.equal(cerr, "done!\n");
+            t.equal(cout, "BODY: hello\n", "got expected response from server");
+            t.equal(cerr, "done!\n", "process logged at end");
 
             server.kill();
           });
         }
       });
+
       server.stderr.on("data", function (data) {
-        err += data;
+        console.log(data.toString("utf8").trim());
+        err += data.toString("utf8");
       });
 
       server.on("close", function () {

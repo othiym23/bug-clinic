@@ -1,7 +1,10 @@
 var request = require("http").request;
 
-var body = "<html><head><title>hi</title></head><body><p>yo</p></body></html>";
 var contentType = "text/html";
+var body = "<html>" +
+           "<head><title>hi</title></head>" +
+           "<body><p>yo</p></body>" +
+           "</html>";
 
 var headers = {
   host : "localhost",
@@ -10,7 +13,7 @@ var headers = {
   headers : {
     "content-type"   : contentType,
     "content-length" : body.length,
-    "served-by"      : "Express"
+    "requested-by"   : "Request™"
   }
 };
 

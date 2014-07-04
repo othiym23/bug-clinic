@@ -24,3 +24,58 @@ can use in your own code (the next section of this workshopper will
 discuss a more general way of doing this). If you want access to this
 functionality and you're not yet running on Node 0.11, the `debuglog`
 module is a simple backport of this functionality.
+
+To show you how it works, here's a simple HTTP client that has
+something wrong with it:
+
+    var request = require("http").request;
+
+    var contentType = "text/html";
+    var body = "<html>" +
+               "<head><title>hi</title></head>" +
+               "<body><p>yo</p></body>" +
+               "</html>";
+
+    var headers = {
+      host : "localhost",
+      port : 9876,
+      method : "GET",
+      headers : {
+        "content-type"   : contentType,
+        "content-length" : body.length,
+        "requested-by"   : "Request™"
+      }
+    };
+
+    var yolo = request(headers, function (res) {
+      res.setEncoding("utf8");
+      res.on("data", function (data) {
+        console.log("BODY: " + data);
+      });
+
+      res.on("end", function () {
+        console.error("done!");
+      });
+    });
+
+    yolo.end();
+
+
+Here's a simple server to test it against:
+
+    var createServer = require("http").createServer;
+    var server = createServer(function (req, res) {
+      res.end("hello");
+    });
+    server.listen(9876, function () {
+      console.log("listening");
+    });
+
+If you run this server with `NODE_DEBUG=http node server.js`, it will
+show you what's going on with the server. You can also see an example
+server run by running `bug-clinic run scenario.js` -- it will be the
+text at the top of the output run.
+
+It should be pretty obvious what the problem is (a hint: look for the
+word 'error'), and it will also be obvious when the problem has gone
+away.
