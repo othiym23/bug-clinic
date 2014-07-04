@@ -66,14 +66,14 @@ module.exports = function () {
           t.ok(successerr.match(/peach/), "found evidence of trace 2");
           t.ok(successerr.match(/koopa/), "found evidence of trace 3");
 
-          // t.doesNotThrow(function () {
+          t.doesNotThrow(function () {
             var baseline = require("./mushroom-kingdom.json");
             t.deepEqual(
               successout.trim(),
               inspect(baseline),
               "got the expected JSON"
             );
-          // }, "JSON parsed OK");
+          }, "JSON parsed OK");
 
           t.end();
         });
