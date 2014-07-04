@@ -58,3 +58,15 @@ calls to the console API:
 If you want some sample JSON to play with, store the following in
 `test-input.json` and then parse it by running `node scenario.js
 test-input.json`.
+
+    {
+        "mushroomKingdom": [
+            "Super Mario Bros",
+            "Super Mario Bros 2",
+            "Super Mario Bros 3",
+            "Super Mario World",
+            "Super Mario 64",
+            "Super Mario Sunshine",
+            "Super Mario Galaxy"
+        ]
+    }
