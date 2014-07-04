@@ -26,7 +26,7 @@ You can start with this config file for jshint:
     }
 
 Put it in a file named jshintrc, and then run jshint with
-`jshint --config jshintrc`
+`jshint --config jshintrc <filename.js>`
 
 BONUS:
 
@@ -35,7 +35,7 @@ solution, there may still be some questionable code lurking in your
 solution. Install eslint (`npm -g i eslint`, same caveats as above)
 against your fixed program and see if it picks up anything else.
 Here's a good starter config file for eslint (again, stick it in
-`eslintrc` and then use it with `eslint --config eslintrc`):
+`eslintrc` and then use it with `eslint --config eslintrc <filename.js>`):
 
     {
         "env" : {
