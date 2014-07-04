@@ -8,6 +8,7 @@ module.exports = {
     });
 
     traces.on("request:end", function (trace) {
+      /*eslint no-process-exit:0 */
       count++;
       console.error(trace.statusCode);
       if (count === 3) process.exit(0);
