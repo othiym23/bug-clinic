@@ -1,6 +1,76 @@
-Although it's not always possible, it can be incredibly satisfying to just
-load part of your program into node and poke at it interactively. The node
-REPL (read-eval-print loop) is pretty bare-bones, though, and so it's worth
-looking at one of the many more elaborate modules that build on the REPL.
-replpad adds a ton of features, including reloading your source files when
-they're changed.
+Although it's not always possible, it can be incredibly satisfying to
+just load part of your program into node and poke at it interactively.
+The built-in node REPL (read-eval-print loop) is pretty bare-bones,
+and working with it can be difficult (although it will occasionally
+surprise you with what it does have, like on-demand loading of the
+core modules, and tab-completion of variable and function names). It's
+enough to use as a scratch pad and maybe pull in a module or two to
+see how they work with various inputs, but you have to jump in and out
+of it frequently as you make changes to your code, and it's kind of a
+pain.
+
+This is more or less the problem replpad was designed to solve. It
+adds a huge number of additional features, including the ability to
+watch source directories and reload files when they change, access
+the documents for built-in functions directly from inside the REPL,
+apply syntax highlighting to the result of calls, and add a grab-bag
+of useful new commands to make working with sources easier.
+
+Another very useful module, replify, will add a REPL to your
+application, allowing you to connect to it via a Unix domain socket
+*while the application is running*. This can be an invaluable tool for
+diagnosing problems with long-running services (although, like a lot
+of very useful debugging features, it's not necessarily safe for use
+in production, so consult with your personal physician / offer void
+where prohibited by law).
+
+If you really want to go through the wormhole to a magical world of
+live application introspection, you can *combine replify and replpad*:
+
+    // in your application
+    var replify = require("replify");
+    var replpad = require("replpad");
+
+    var server = require("http").createServer(function (req, res) {
+      res.end("hello");
+    });
+
+    replify({name : "hello-server", start : replpad}, server);
+
+    server.listen(1234, function () {
+      console.log("listening");
+    });
+
+Once you start that server, install `repl-client` and connect to the
+running service:
+
+    rc /tmp/repl/hello-server.sock
+    // on Windows: rc \\.\pipe\tmp-repl\hello-server.sock
+
+and you'll get connected to the replify'd replpad, where you can
+type `app` and get the current state of your HTTP server! Whatever
+object you pass to the call to replify is the `app` context in the
+REPL, so you can pass it a database connection pool or HTTP agent for
+making outbound requests and easily see the state of the service,
+interactively, in realtime. MAGIC.
+
+So let's do that! Write a module that exports a function that takes
+a callback, starts an HTTP server on port 8080 (that can reply with
+whatever). The function should also use replify (and replpad, if you
+feel like it) to expose an object that contains a property named
+"__message" with the value "REPLs are neat". The REPL should be named
+"bug-clinic". When everything is running, it should call the callback
+with the server and the replify instance as arguments.
+
+The function should look something like the following:
+
+    module.exports = scenario;
+
+    function scenario(callback) {
+      var createServer = require("http").createServer;
+
+      var server = createServer(/* do HTTP response stuff here */);
+      var repl = // do replify stuff here
+
+      callback(server, repl);
+    }
