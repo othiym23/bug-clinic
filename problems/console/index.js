@@ -62,7 +62,11 @@ module.exports = function () {
             return t.end();
           }
 
-          t.equals(successerr.indexOf("Trace: traced"), 0, "found evidence of trace 1");
+          t.equals(successerr.indexOf(
+            "Trace: traced"),
+            0,
+            "found trace 1 (will you always have an error?)"
+          );
           t.ok(successerr.match(/peach/), "found evidence of trace 2");
           t.ok(successerr.match(/koopa/), "found evidence of trace 3");
 
