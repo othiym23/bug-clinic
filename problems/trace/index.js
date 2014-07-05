@@ -70,19 +70,19 @@ module.exports = function () {
 
       function fetch() {
         get(
-         {url : "http://localhost:8080/neato", json : true},
+         {url : "http://localhost:9999/neato", json : true},
          function (e, r, body) {
            t.ifError(e, "got first request OK");
            t.deepEqual(body, {error : "notfound"}, "got 404 response");
 
            get(
-             {url : "http://localhost:8080/prognosis", json : true},
+             {url : "http://localhost:9999/prognosis", json : true},
              function (e, r, body) {
                t.ifError(e, "got second request OK");
                t.deepEqual(body, {ok : true}, "got expected (found) response");
 
                get(
-                 {url : "http://localhost:8080/whoops", json : true},
+                 {url : "http://localhost:9999/whoops", json : true},
                  function (e, r, body) {
                    t.ifError(e, "got third request OK");
                    t.deepEqual(body, {error : "notfound"}, "got 404 response");

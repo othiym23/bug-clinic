@@ -33,13 +33,16 @@ emitting trace events. The main downside is that it's still pretty
 labor-intensive getting all the probes into your program in the first
 place.
 
+## CHALLENGE
+
 So! Let's see how this works! Write a web server instrumented using
-jstrace. The server should return one of two responses. When it gets a
-GET response to /prognosis, it should return a status code of 200 and
-a payload of '{"ok":true}'. For ALL other requests, it should return a
-status code of 404 and a payload of '{"error":"notfound"}'. It should
-also print the message "up" to standard error when it's listening, so
-the verifier knows it's ready for requests.
+jstrace. The server should listen on port 9999 and return one of
+two responses. When it gets a GET response to /prognosis, it should
+return a status code of 200 and a payload of '{"ok":true}'. For ALL
+other requests, it should return a status code of 404 and a payload
+of '{"error":"notfound"}'. It should also print the message "up" to
+standard error when it's listening, so the verifier knows it's ready
+for requests.
 
 It should include two jstrace probes:
 
