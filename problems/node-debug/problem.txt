@@ -25,6 +25,8 @@ discuss a more general way of doing this). If you want access to this
 functionality and you're not yet running on Node 0.11, the `debuglog`
 module is a simple backport of this functionality.
 
+## CHALLENGE
+
 To show you how it works, here's a simple HTTP client that has
 something wrong with it:
 

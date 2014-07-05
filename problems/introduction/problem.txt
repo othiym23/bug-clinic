@@ -22,5 +22,7 @@ feel well-equipped to figure out what's wrong with the modules
 you're developing, and to make your production systems easier to
 troubleshoot.
 
+## CHALLENGE
+
 To proceed, write a program that prints "i am okay" to standard output
 and "i am so incredibly not okay" to standard error.

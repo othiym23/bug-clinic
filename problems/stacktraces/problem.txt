@@ -37,6 +37,8 @@ Long stacktraces are not a silver bullet:
    process started. Learning to weed out extraneous information is an
    acquired skill.
 
+## CHALLENGE
+
 As an example, what happens when you run this program with bad input?
 
     var readFile = require("fs").readFile;

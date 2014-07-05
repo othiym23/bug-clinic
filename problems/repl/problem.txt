@@ -54,6 +54,8 @@ REPL, so you can pass it a database connection pool or HTTP agent for
 making outbound requests and easily see the state of the service,
 interactively, in realtime. MAGIC.
 
+## CHALLENGE
+
 So let's do that! Write a module that exports a function that takes
 a callback, starts an HTTP server on port 8080 (that can reply with
 whatever). The function should also use replify (and replpad, if you

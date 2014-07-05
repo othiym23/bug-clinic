@@ -31,6 +31,8 @@ In day-to-day debugging, console.error, console.dir and console.trace
 are the most useful of these functions. They will give you the why,
 the what, and the where without requiring a bunch of extra effort.
 
+## CHALLENGE
+
 Here's a simple exercise to get you comfortable with using the console
 methods. Replace the comments in the following program with the relevant
 calls to the console API:

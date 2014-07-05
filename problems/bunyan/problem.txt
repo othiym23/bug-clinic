@@ -30,6 +30,8 @@ platform. In general, the Node world has settled on newline-delimited
 JSON objects for logging. bunyan is the established favorite, although
 the much newer bole is gaining popularity quickly.
 
+## CHALLENGE
+
 Here is a program with a problem:
 
     module.exports = scenario;

@@ -31,6 +31,8 @@ others) is tape. tape produces TAP output, its test suites can be run
 directly with node, and it comes with a rich set of assertions -- and
 very little else.
 
+## CHALLENGE
+
 Frequently, it's useful to write a set of test cases to exercise all the edge
 cases of your program. The following example is contrived, but it shows the
 basic pattern. It gets passed a tape test object by the verifier, so you don't

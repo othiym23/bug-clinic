@@ -4,6 +4,8 @@ is so flexible, many things you *can* do are also things you
 code linters like jshint can identify issues that would otherwise go
 unnoticed.
 
+## CHALLENGE
+
 Install jshint (`npm install --global jshint` – maybe with sudo on
 Linux, probably logged in as an administrator on Windows) and use it
 to figure out and fix what's wrong with this program:
