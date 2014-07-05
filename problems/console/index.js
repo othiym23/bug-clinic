@@ -67,8 +67,8 @@ module.exports = function () {
             0,
             "found trace 1 (will you always have an error?)"
           );
-          t.ok(successerr.match(/peach/), "found evidence of trace 2");
-          t.ok(successerr.match(/koopa/), "found evidence of trace 3");
+          t.ok(successerr.match(/peach/), "found more evidence that trace worked");
+          t.ok(successerr.match(/koopa/), "found yet even more evidence");
 
           t.doesNotThrow(function () {
             var baseline = require("./mushroom-kingdom.json");
