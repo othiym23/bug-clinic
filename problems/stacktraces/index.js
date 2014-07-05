@@ -32,7 +32,7 @@ module.exports = function () {
           t.ok(error instanceof Error, "got error");
           var stack = error.stack;
 
-          t.ok(stack.match(/stacktraces\/index/), "found previous stack");
+          t.ok(stack.match(/stacktraces(\/|\\)index/), "found previous stack");
           t.ok(stack.match(/Object.parse/), "found current stack");
 
           t.end();
