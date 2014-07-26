@@ -33,6 +33,9 @@ emitting trace events. The main downside is that it's still pretty
 labor-intensive getting all the probes into your program in the first
 place.
 
+To install jstrace, do `npm install --global jstrace` (maybe with sudo on
+Linux, probably logged in as an administrator on Windows).
+
 ## CHALLENGE
 
 So! Let's see how this works! Write a web server instrumented using
@@ -43,6 +46,10 @@ other requests, it should return a status code of 404 and a payload
 of '{"error":"notfound"}'. It should also print the message "up" to
 standard error when it's listening, so the verifier knows it's ready
 for requests.
+
+The basic syntax of a `jstrace` call is `jstrace(signal, data);`, where
+signal is the string name of the signal you're sending, and the data is
+a JSON object with the data you'd like to pass back.
 
 It should include two jstrace probes:
 
