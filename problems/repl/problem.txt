@@ -24,6 +24,9 @@ of very useful debugging features, it's not necessarily safe for use
 in production, so consult with your personal physician / offer void
 where prohibited by law).
 
+To install these modules, you'll need to `npm install replify` and
+`npm install replpad` respectively.
+
 If you really want to go through the wormhole to a magical world of
 live application introspection, you can *combine replify and replpad*:
 
@@ -60,9 +63,10 @@ So let's do that! Write a module that exports a function that takes
 a callback, starts an HTTP server on port 8080 (that can reply with
 whatever). The function should also use replify (and replpad, if you
 feel like it) to expose an object that contains a property named
-"__message" with the value "REPLs are neat". The REPL should be named
-"bug-clinic". When everything is running, it should call the callback
-with the server and the replify instance as arguments.
+"__message" with the value "REPLs are neat" in its second argument.
+The REPL should be named "bug-clinic" (include this somewhere in the
+first argument).  When everything is running, it should call the
+callback with the server and the replify instance as arguments.
 
 The function should look something like the following:
 

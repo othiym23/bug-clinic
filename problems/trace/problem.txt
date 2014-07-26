@@ -33,6 +33,9 @@ emitting trace events. The main downside is that it's still pretty
 labor-intensive getting all the probes into your program in the first
 place.
 
+To install jstrace, run `npm install --global jstrace` (maybe with sudo
+on Linux, probably logged in as an administrator on Windows).
+
 ## CHALLENGE
 
 So! Let's see how this works! Write a web server instrumented using
@@ -44,7 +47,12 @@ of '{"error":"notfound"}'. It should also print the message "up" to
 standard error when it's listening, so the verifier knows it's ready
 for requests.
 
-It should include two jstrace probes:
+The basic syntax of a `jstrace` call is `jstrace(signal, data)`, where
+signal is the string name of the signal you're sending, and the data
+is a JSON object with the data you'd like to pass back.
+
+Your server ('server.js', for instance) should include two jstrace
+probes:
 
 1. At the beginning of the response handler, "request:start", with
    a payload object that includes the URL of the request (as "url");
@@ -53,10 +61,11 @@ It should include two jstrace probes:
    code as "statusCode", and the response body (as a JavaScript
    object) with the name "body".
 
-You should be able to start your server, run `jstrace -p <server
-pid>` with the tracer script below, and see the status codes and URLs
+You should be able to start your server, run `jstrace -p <server-pid>`
+with the tracer script below, and see the status codes and URLs
 being printed to the terminal as you hit your server with curl:
 
+    // watcher.js
     module.exports = {
       local : function (traces) {
         traces.on("request:start", function (trace) {
@@ -68,3 +77,15 @@ being printed to the terminal as you hit your server with curl:
         });
       }
     };
+
+Overall, it would make sense to do this with 3 separate terminal sessions :
+
+1.  node server.js
+      - this is the process you're debugging : get its PID with
+        (`ps fax | grep node` in Linux, for instance).
+
+2.  curl http://localhost:9999/XYZ
+      - stimulates the server to do something
+
+3.  jstrace -p <server-pid> watcher.js
+      - gives you the jstrace messages

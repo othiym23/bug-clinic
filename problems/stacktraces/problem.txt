@@ -37,6 +37,9 @@ Long stacktraces are not a silver bullet:
    process started. Learning to weed out extraneous information is an
    acquired skill.
 
+To install `stackup`, run `npm install stackup`, and then in your
+program, add `require('stackup')` at the top.
+
 ## CHALLENGE
 
 As an example, what happens when you run this program with bad input?
