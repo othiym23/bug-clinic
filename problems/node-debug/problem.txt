@@ -30,13 +30,10 @@ module is a simple backport of this functionality.
 To show you how it works, here's a simple HTTP client that has
 something wrong with it:
 
+    //  scan-client.js
     var request = require("http").request;
 
     var contentType = "text/html";
-    var body = "<html>" +
-               "<head><title>hi</title></head>" +
-               "<body><p>yo</p></body>" +
-               "</html>";
 
     var headers = {
       host : "localhost",
@@ -63,8 +60,9 @@ something wrong with it:
     yolo.end();
 
 
-Here's a simple server to test it against:
+And here's a simple server to test it against:
 
+    //  scan-server.js
     var createServer = require("http").createServer;
     var server = createServer(function (req, res) {
       res.end("hello");
@@ -73,8 +71,9 @@ Here's a simple server to test it against:
       console.log("listening");
     });
 
-If you run this server with `NODE_DEBUG=http node server.js`, it will
-show you what's going on with the server. You can also see an example
+If you run this server with `NODE_DEBUG=http node scan-server.js`, 
+it will show you what's going on with the server, when you test it with 
+the buggy `node scan-client.js`.  You can also see an example
 server run by running `bug-clinic run scenario.js` -- it will be the
 text at the top of the output run.
 

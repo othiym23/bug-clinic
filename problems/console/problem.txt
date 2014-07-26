@@ -34,8 +34,8 @@ the what, and the where without requiring a bunch of extra effort.
 ## CHALLENGE
 
 Here's a simple exercise to get you comfortable with using the console
-methods. Replace the comments in the following program with the relevant
-calls to the console API:
+methods. Replace the comments in the following program (which you can 
+save as scenario.js) with the relevant calls to the console API:
 
     // scenario.js
     var fs = require("fs");

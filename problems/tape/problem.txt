@@ -33,11 +33,16 @@ very little else.
 
 ## CHALLENGE
 
-Frequently, it's useful to write a set of test cases to exercise all the edge
-cases of your program. The following example is contrived, but it shows the
-basic pattern. It gets passed a tape test object by the verifier, so you don't
-need to call t.end(). Also, it has something wrong with it (it shouldn't be too hard
-to figure out):
+Frequently, it's useful to write a set of test cases to exercise all the 
+edge cases of your program. The following example is contrived, but it 
+shows the basic pattern.  The function being examined is 
+`isGreaterThanZero()`, which there are a series of test cases for, some 
+of which currently fail.  
+
+The module code below gets passed a tape test object by the verifier, so 
+you don't need to call t.end(). As mentioned above, `isGreaterThanZero()` 
+has something  wrong with it (it shouldn't be too hard to figure out, 
+but you should fix):
 
     module.exports = scenario;
 

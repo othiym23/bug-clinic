@@ -8,7 +8,8 @@ unnoticed.
 
 Install jshint (`npm install --global jshint` – maybe with sudo on
 Linux, probably logged in as an administrator on Windows) and use it
-to figure out and fix what's wrong with this program:
+to figure out and fix what's wrong with this program (which has the 
+filename <filename.js> below):
 
     today = 'today';
 
@@ -50,5 +51,5 @@ Here's a good starter config file for eslint (again, stick it in
 
 To run or test your bonus solution, run:
 
-    `bug-clinic run bonus <program.js>` or
-    `bug-clinic verify bonus <program.js>`
+    `bug-clinic run bonus <filename.js>` or
+    `bug-clinic verify bonus <filename.js>`

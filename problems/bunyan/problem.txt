@@ -30,6 +30,9 @@ platform. In general, the Node world has settled on newline-delimited
 JSON objects for logging. bunyan is the established favorite, although
 the much newer bole is gaining popularity quickly.
 
+To install bunyan, do `npm install --global bunyan` (maybe with sudo on
+Linux, probably logged in as an administrator on Windows).
+
 ## CHALLENGE
 
 Here is a program with a problem:
