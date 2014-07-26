@@ -19,6 +19,7 @@ $ bug-clinic
 * [Jacob Groundwater](https://github.com/groundwater)
 * [Max Ogden](https://github.com/maxogden)
 * [Trevor Norris](https://github.com/trevnorris)
+* [Martin Andrews](https://github.com/mdda)
 
 ## License
 
