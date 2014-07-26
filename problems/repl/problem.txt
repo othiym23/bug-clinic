@@ -4,7 +4,7 @@ The built-in node REPL (read-eval-print loop) is pretty bare-bones,
 and working with it can be difficult (although it will occasionally
 surprise you with what it does have, like on-demand loading of the
 core modules, and tab-completion of variable and function names). It's
-enough to use as a scratch pad and maybe pull in a module or two to
+enough to use as a scratch pad and maybe pull in a module  or two to
 see how they work with various inputs, but you have to jump in and out
 of it frequently as you make changes to your code, and it's kind of a
 pain.
@@ -23,6 +23,9 @@ diagnosing problems with long-running services (although, like a lot
 of very useful debugging features, it's not necessarily safe for use
 in production, so consult with your personal physician / offer void
 where prohibited by law).
+
+To install these modules, you'll need to `npm install replify` and
+`npm install replpad` respectively.
 
 If you really want to go through the wormhole to a magical world of
 live application introspection, you can *combine replify and replpad*:
