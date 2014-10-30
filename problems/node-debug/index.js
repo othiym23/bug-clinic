@@ -53,7 +53,7 @@ module.exports = function () {
 
       server.on("close", function () {
         t.notOk(
-          out.match(/parse error/) || err.match(/parse error/),
+          out.match(/parse error/) || err.match(/parse error/) || err.match(/EADDRINUSE/),
           "request was made successfully"
         );
 
