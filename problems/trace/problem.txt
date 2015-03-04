@@ -1,18 +1,16 @@
 If you've been around Node for a while, you're probably wondering
 when this tutorial would get around to discussing DTrace, the dynamic
-tracing system. DTrace and Node's history are intertwined, because
-both are developed and supported by Joyent. DTrace is perhaps the most
-powerful, most general tracing tool ever developed. Its killer feature
-is that it allows you to instrument and observe the internals of Node
-processes without you, as a developer, making any changes to your own
-code.
+tracing system. DTrace is perhaps the most powerful, most general 
+tracing tool ever developed. Its killer feature is that it allows 
+you to instrument and observe the internals of Node processes without 
+you, as a developer, making any changes to your own code.
 
 However, DTrace has a major disadvantage: several of its most useful
 features are only available on SmartOS, Joyent's cloud operating
-system (or, for the few proud souls still running it, recent versions
-of FreeBSD). DTrace is not the only dynamic tracing system out there,
-and Node actually has support for several different tracing providers,
-including Event Tracing for Windows and Linux's systemtap and ktap.
+system (also in Solaris and recent versions of FreeBSD and ). DTrace 
+is not the only dynamic tracing system out there, and Node actually 
+has support for several different tracing providers, including Event 
+Tracing for Windows and Linux's systemtap and ktap.
 
 But that doesn't help you if, like most Node developers, you're
 primarily a JavaScript developer. The ideal solution is one that
