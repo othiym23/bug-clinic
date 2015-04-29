@@ -18,7 +18,7 @@ or for lldb:
     run path/to/command.js <and> <other> <args>
     bt all
 
-This will give you a set of backtraces for all the active threads in Noe
+This will give you a set of backtraces for all the active threads in Node
 at the time the program crashed, which may be useful to Node developers
 experienced with Node's C++ internals.
 
