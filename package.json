@@ -40,7 +40,7 @@
   "dependencies": {
     "adventure": "^2.4.0",
     "adventure-verify": "^2.1.1",
-    "bunyan": "^0.23.1",
+    "bunyan": "^1.8.1",
     "concat-stream": "^1.4.6",
     "default-pager": "^1.0.1",
     "eslint": "^0.6.2",
