@@ -33,7 +33,7 @@ module.exports = function () {
           var stack = error.stack;
 
           t.ok(stack.match(/stacktraces(\/|\\)index/), "found previous stack");
-          t.ok(stack.match(/Object.parse/), "found current stack");
+          t.ok(stack.match(/JSON.parse/), "found current stack");
 
           t.end();
         });
