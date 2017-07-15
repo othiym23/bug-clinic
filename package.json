@@ -6,7 +6,8 @@
     "bug-clinic": "bin/cmd.js"
   },
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "tape test/*.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -58,5 +59,8 @@
     "stackup": "0.0.3",
     "terminal-menu": "^0.3.2",
     "win-spawn": "^2.0.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2"
   }
 }
