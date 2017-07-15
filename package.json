@@ -34,7 +34,7 @@
     "Trevor Norris <trev.norris@gmail.com>",
     "Martin Andrews <github@mdda.net>"
   ],
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/othiym23/bug-clinic/issues"
   },
