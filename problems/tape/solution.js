@@ -1,7 +1,7 @@
 module.exports = scenario
 
 function scenario (t) {
-  t.ok(isGreaterThanZero(Infinity), '1 is greater than 0')
+  t.ok(isGreaterThanZero(Infinity), 'Infinity is greater than 0')
   t.ok(isGreaterThanZero(1), '1 is greater than 0')
   t.notOk(isGreaterThanZero(0), '0 *is* 0, not greater than 0')
   t.notOk(isGreaterThanZero(-0), 'why does -0 exist')
