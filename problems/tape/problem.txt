@@ -47,12 +47,12 @@ hard to figure out, but you still need to fix it):
     module.exports = scenario;
 
     function scenario(t) {
-      t.ok(isGreaterThanZero(Infinity), "Infinity is greater than 0");
-      t.ok(isGreaterThanZero(1), "1 is greater than 0");
-      t.notOk(isGreaterThanZero(0), "0 *is* 0, not greater than 0");
-      t.notOk(isGreaterThanZero(-0), "why does -0 exist");
-      t.notOk(isGreaterThanZero(-1), "-1 is definitely not greater than 0");
-      t.notOk(isGreaterThanZero(-Infinity), "-Infinity is definitely not greater than 0");
+      t.ok(isGreaterThanZero(Infinity), 'Infinity is greater than 0')
+      t.ok(isGreaterThanZero(1), '1 is greater than 0')
+      t.notOk(isGreaterThanZero(0), '0 *is* 0, not greater than 0')
+      t.notOk(isGreaterThanZero(-0), 'why does -0 exist')
+      t.notOk(isGreaterThanZero(-1), '-1 is definitely not greater than 0')
+      t.notOk(isGreaterThanZero(-Infinity), '-Infinity is definitely not greater than 0')
 
-      function isGreaterThanZero(value) { return value >= 0; }
+      function isGreaterThanZero(value) { return value >= 0 }
     }
