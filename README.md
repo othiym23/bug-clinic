@@ -9,8 +9,8 @@
 ***please note this is only about 2/3 complete, but you'll probably learn something anyway***
 
 ```sh
-$ sudo npm --global install bug-clinic
-$ bug-clinic
+sudo npm --global install bug-clinic
+bug-clinic
 ```
 
 ## Contributors
